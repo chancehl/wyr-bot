@@ -30,9 +30,9 @@ class BotClient(discord.Client):
         print(f"Message from {message.author}: {message.content}")
 
         if self._should_respond(message=message.content):
-            print(self._generate_completion("gross"))
-        else:
-            print("I should not respond")
+            topic = self._parse_topic(message=message.content)
+
+            print(self._generate_completion(topic))
 
     def _should_respond(self, message: str) -> bool:
         """
@@ -41,6 +41,11 @@ class BotClient(discord.Client):
         pattern = r"\!wyr .+"
 
         return bool(re.match(pattern, message))
+
+    def _parse_topic(self, message: str) -> str:
+        parts = message.split("!wyr")
+
+        return parts[1]
 
     def _generate_completion(self, topic: str) -> str:
         completion = self.openai_client.chat.completions.create(
