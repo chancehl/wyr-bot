@@ -54,7 +54,8 @@ class BotClient(discord.Client):
             messages=[
                 {
                     "role": "user",
-                    "content": f'Generate a {topic} "would you rather" question',
+                    # pylint: disable=line-too-long
+                    "content": f'Generate a thought-provoking "would you rather" question about the following topic: {topic}',
                 }
             ],
         )
