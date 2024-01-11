@@ -32,7 +32,9 @@ class BotClient(discord.Client):
         if self._should_respond(message=message.content):
             topic = self._parse_topic(message=message.content)
 
-            print(self._generate_completion(topic))
+            completion = self._generate_completion(topic)
+
+            await message.reply(content=completion.question)
 
     def _should_respond(self, message: str) -> bool:
         """
